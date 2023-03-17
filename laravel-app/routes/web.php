@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Table_HerosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $variable = "Hola soy una variable";
+    $variable2 = "Variable";
+    return view('welcome', compact('variable','variable2'));
+})->name('welcome') ;
+
+Route::get('/example', function () {
+    $page_title = "Example View";
+    return view('example', compact('page_title'));
+}) ->name('example');
+
+//Route::get('/heros', function () {}) ->name('heros');
+Route::get('/heros', [Table_HerosController::class, 'index'])->name('heros');
+
+Route::get('/heros_women', [Table_HerosController::class, 'index_wom'])->name('heros_women');
+
+Route::get('/heros_men', [Table_HerosController::class, 'index_men'])->name('heros_men');
